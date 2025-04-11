@@ -1,0 +1,41 @@
+/* Импорт шрифтов (если используете Google Fonts и не настроили в Tailwind config) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap');
+
+/* Плавный скролл */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Базовые стили, если нужно переопределить Tailwind */
+body {
+    /* Шрифты уже заданы через Tailwind config в HTML, но можно и здесь */
+    /* font-family: 'Inter', sans-serif; */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    /* font-family: 'Montserrat', sans-serif; */
+}
+
+/* Стили для подчеркивания ссылок в тексте, если нужно */
+/*
+section p a {
+  @apply text-brand-blue underline hover:text-blue-900 transition-colors duration-200;
+}
+*/
+
+/* Стили для кнопок (дополнительно к Tailwind, если нужно) */
+/*
+button {
+  @apply transition-transform duration-200 ease-in-out;
+}
+button:hover {
+  @apply transform scale-105; /* Пример легкого увеличения */
+/*}
+*/
+
+/* Стили для ссылок на сертификаты */
+.cert-link {
+    cursor: pointer;
+}
+
+/* Дополнительные кастомные стили при необходимости */
