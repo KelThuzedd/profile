@@ -1,218 +1,820 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Профессиональные сметные услуги - расчёт, проверка и консультации.">
+    <meta charset="UTF-8"/>
+    <meta name="description"
+          content="Профессиональные сметные услуги от опытного инженера-сметчика Елены Скобелевой. Составление, проверка смет, КС-2/3, удаленно.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сметные услуги | Ваше имя/компания</title>
+    <title>Инженер-сметчик Елена Скобелева | Сметные услуги | Барнаул | Удаленно</title>
     <!-- Подключаем TailwindCSS через CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.2.7/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Подключаем Font Awesome для иконок (опционально) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!-- Кастомные стили (если понадобятся) -->
+    <style>
+        /* Плавный скролл */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Стили для скрытия/показа секции с позициями */
+        .position-count-section {
+            display: none;
+        }
+
+        .position-count-section.visible {
+            display: block;
+        }
+
+        /* Стили для КС-2/3 опций */
+        .ks-options-section {
+            display: none;
+        }
+
+        .ks-options-section.visible {
+            display: block;
+        }
+
+        /* Стили для других услуг */
+        .other-services-section {
+            display: none;
+        }
+
+        .other-services-section.visible {
+            display: block;
+        }
+
+        /* Небольшая анимация для карточек */
+        .service-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+    </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-gray-50 text-gray-800 font-sans">
 
 <!-- HEADER -->
-<header class="sticky top-0 z-50 bg-white shadow">
-    <div class="container mx-auto flex items-center justify-between py-4 px-4">
-        <div class="text-2xl font-bold">
-            <!-- Лого или название -->
-            <a href="#hero">Сметные услуги</a>
+<header class="sticky top-0 z-50 bg-white shadow-md">
+    <div class="container mx-auto flex items-center justify-between py-4 px-4 md:px-6">
+        <div class="text-xl md:text-2xl font-bold text-blue-700">
+            <a href="#hero">Елена Скобелева</a>
+            <span class="block text-sm font-normal text-gray-500">Инженер-сметчик</span>
         </div>
         <!-- Навигация -->
-        <nav class="hidden md:block space-x-6">
-            <a href="#about" class="hover:text-blue-500">Обо мне</a>
-            <a href="#services" class="hover:text-blue-500">Услуги</a>
-            <a href="#calculator" class="hover:text-blue-500">Калькулятор</a>
-            <a href="#contacts" class="hover:text-blue-500">Контакты</a>
+        <nav class="hidden lg:flex space-x-6 items-center">
+            <a href="#about" class="text-gray-600 hover:text-blue-600">Обо мне</a>
+            <a href="#calculator" class="text-gray-600 hover:text-blue-600">Услуги и Расчет</a>
+            <a href="#portfolio" class="text-gray-600 hover:text-blue-600">Портфолио и Сертификаты</a>
+            <a href="#how-it-works" class="text-gray-600 hover:text-blue-600">Как заказать</a>
+            <a href="#contacts" class="text-gray-600 hover:text-blue-600">Контакты</a>
         </nav>
-        <!-- Кнопка -->
-        <a href="#calculator" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-            Заказать смету
-        </a>
+        <!-- Контакты в шапке -->
+        <div class="hidden sm:flex items-center space-x-4">
+            <a href="tel:+79609618922"
+               class="text-sm font-semibold text-blue-600 hover:text-blue-800 flex items-center">
+                <i class="fas fa-phone mr-1"></i> +7 (960) 961-89-22
+            </a>
+            <a href="#calculator"
+               class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition duration-300">
+                Рассчитать стоимость
+            </a>
+        </div>
+        <!-- Мобильное меню (иконка) -->
+        <button id="mobile-menu-button" class="lg:hidden text-gray-600 focus:outline-none">
+            <i class="fas fa-bars fa-lg"></i>
+        </button>
+    </div>
+    <!-- Мобильное меню (выпадающее) -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-white py-2 absolute w-full shadow-lg">
+        <a href="#about" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Обо мне</a>
+        <a href="#calculator" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Услуги и Расчет</a>
+        <a href="#portfolio" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Портфолио и Сертификаты</a>
+        <a href="#how-it-works" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Как заказать</a>
+        <a href="#contacts" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Контакты</a>
+        <div class="px-4 py-2 border-t border-gray-200">
+            <a href="tel:+79609618922"
+               class="text-sm font-semibold text-blue-600 hover:text-blue-800 flex items-center mb-2">
+                <i class="fas fa-phone mr-1"></i> +7 (960) 961-89-22
+            </a>
+            <a href="#calculator"
+               class="w-full text-center bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition duration-300 block">
+                Рассчитать стоимость
+            </a>
+        </div>
     </div>
 </header>
 
-<!-- HERO (приветственный блок) -->
-<section id="hero" class="min-h-screen flex items-center justify-center bg-gray-100 py-10 px-4">
-    <div class="max-w-3xl text-center">
-        <h1 class="text-4xl font-bold mb-4">Профессиональные сметные услуги</h1>
-        <p class="text-lg mb-8">Составление, проверка и консультации по сметам любой сложности. Помогаю экономить время и деньги!</p>
-        <a href="#calculator" class="bg-blue-500 text-white px-5 py-3 text-lg rounded hover:bg-blue-600 inline-block">
-            Рассчитать стоимость
-        </a>
-    </div>
-</section>
-
-<!-- ОБО МНЕ -->
-<section id="about" class="py-16 bg-white px-4">
-    <div class="container mx-auto max-w-4xl">
-        <h2 class="text-3xl font-bold mb-8">Обо мне</h2>
-        <div class="flex flex-col md:flex-row items-start md:space-x-8">
-            <!-- Фото (опционально) -->
-            <div class="w-full md:w-1/3 mb-6 md:mb-0">
-                <img src="https://via.placeholder.com/400x400" alt="Ваше фото" class="rounded shadow w-full">
-            </div>
-            <!-- Текст об опыте и преимуществах -->
-            <div class="w-full md:w-2/3">
-                <p class="mb-4">
-                    Меня зовут Иван Иванов. Я уже более 10 лет работаю в строительной сфере, специализируясь на сметных расчётах.
-                </p>
-                <ul class="list-disc list-inside mb-4">
-                    <li>Глубокое знание ФЕР/ТЕР и ГЭСН</li>
-                    <li>Составил более 500 смет для объектов различного масштаба</li>
-                    <li>Опыт работы с частными лицами и компаниями</li>
-                    <li>Официальное оформление и прозрачная отчётность</li>
-                </ul>
-                <p>
-                    Готов помочь вам оптимизировать затраты, проверить смету на соответствие реальности
-                    и найти экономические решения без потери качества.
-                </p>
+<main>
+    <!-- HERO SECTION -->
+    <section id="hero"
+             class="relative min-h-[70vh] flex items-center justify-center bg-gradient-to-r from-blue-100 to-indigo-100 py-20 px-4">
+        <!-- Можно добавить фоновое изображение с низкой прозрачностью -->
+        <!-- <div class="absolute inset-0 bg-cover bg-center opacity-10" style="background-image: url('https://via.placeholder.com/1920x1080/ddeeff/ddeeff?text=');"></div> -->
+        <div class="max-w-4xl text-center relative z-10">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-800 leading-tight">Профессиональные сметные услуги
+                <br class="hidden md:inline"> от опытного инженера</h1>
+            <p class="text-lg md:text-xl mb-8 text-gray-600">Точный расчет, проверка смет и актов КС-2/3. <br>Опыт 11+
+                лет. Работаю удаленно по всей России.</p>
+            <div class="space-x-0 md:space-x-4 space-y-4 md:space-y-0">
+                <a href="#calculator"
+                   class="bg-blue-600 text-white px-6 py-3 text-lg rounded-md hover:bg-blue-700 inline-block transition duration-300 shadow-md">
+                    <i class="fas fa-calculator mr-2"></i> Рассчитать стоимость онлайн
+                </a>
+                <a href="#contacts"
+                   class="bg-white text-blue-600 border border-blue-600 px-6 py-3 text-lg rounded-md hover:bg-blue-50 inline-block transition duration-300">
+                    <i class="fas fa-envelope mr-2"></i> Связаться со мной
+                </a>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- УСЛУГИ -->
-<section id="services" class="py-16 bg-gray-50 px-4">
-    <div class="container mx-auto max-w-5xl">
-        <h2 class="text-3xl font-bold mb-8">Услуги</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Карточка услуги -->
-            <div class="bg-white p-6 rounded shadow">
-                <h3 class="text-xl font-semibold mb-2">Смета на ремонт квартиры</h3>
-                <p class="mb-4">Базовая стоимость <strong>от 3 000 ₽</strong>. Точный расчёт после уточнения деталей.</p>
-                <p class="text-sm text-gray-600">Составлю смету с учётом всех нюансов и актуальных расценок.</p>
+    <!-- ОБО МНЕ -->
+    <section id="about" class="py-16 md:py-24 bg-white px-4">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Обо мне</h2>
+            <div class="flex flex-col lg:flex-row items-center lg:space-x-12">
+                <!-- Фото -->
+                <div class="w-full lg:w-1/3 mb-8 lg:mb-0 flex justify-center">
+                    <img src="https://via.placeholder.com/400x400/cccccc/888888?text=Фото+Елены"
+                         alt="Елена Скобелева, инженер-сметчик" class="rounded-full shadow-lg w-64 h-64 object-cover">
+                </div>
+                <!-- Текст -->
+                <div class="w-full lg:w-2/3 text-center lg:text-left">
+                    <h3 class="text-2xl font-semibold mb-4 text-blue-700">Скобелева Елена Александровна</h3>
+                    <p class="mb-4 text-gray-700">
+                        Приветствую! Я — профессиональный инженер-сметчик с опытом работы более 11 лет. Моя
+                        специализация — точное и оперативное составление и проверка сметной документации в программе
+                        <strong class="font-semibold">Гранд-Смета</strong>. Имею высшее образование по специальности
+                        "Промышленное и гражданское строительство" (ПГС, АлтГТУ им. И.И. Ползунова).
+                    </p>
+                    <p class="mb-4 text-gray-700">
+                        Являюсь <strong class="font-semibold">действующим специалистом в реестре НРС</strong> и имею
+                        сертификат <strong class="font-semibold">НОК от 2023 г.</strong>, что подтверждает мою
+                        квалификацию. Регулярно прохожу курсы повышения квалификации.
+                    </p>
+                    <p class="mb-6 text-gray-700">
+                        Работаю с различными типами смет, включая ресурсные, составляю акты КС-2, КС-3, акты на скрытые
+                        работы, провожу конъюнктурный анализ (КА). Отлично читаю чертежи и проектную документацию.
+                    </p>
+                    <p class="text-gray-700">
+                        Ценю <strong class="font-semibold">внимательность, ответственность и точность</strong> в работе.
+                        Предлагаю услуги <strong class="font-semibold">удаленно</strong>, готова к сотрудничеству с
+                        заказчиками из любых регионов России. Гибкий график позволяет оперативно выполнять задачи.
+                    </p>
+                </div>
             </div>
-            <!-- Карточка услуги -->
-            <div class="bg-white p-6 rounded shadow">
-                <h3 class="text-xl font-semibold mb-2">Капитальное строительство</h3>
-                <p class="mb-4">Базовая стоимость <strong>от 15 000 ₽</strong>.</p>
-                <p class="text-sm text-gray-600">Сметы для коммерческих объектов, многоэтажек, коттеджей.</p>
-            </div>
-            <!-- Карточка услуги -->
-            <div class="bg-white p-6 rounded shadow">
-                <h3 class="text-xl font-semibold mb-2">Проверка готовой сметы</h3>
-                <p class="mb-4">Стоимость <strong>2 000 ₽</strong> за проект.</p>
-                <p class="text-sm text-gray-600">Проверю актуальность расценок и выявлю завышения стоимости.</p>
-            </div>
-            <!-- Добавляйте и другие услуги, если нужно -->
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- КАЛЬКУЛЯТОР -->
-<section id="calculator" class="py-16 bg-white px-4">
-    <div class="container mx-auto max-w-3xl">
-        <h2 class="text-3xl font-bold mb-6">Калькулятор стоимости</h2>
-        <p class="mb-4">Выберите нужные услуги и оставьте контакты — получите предварительный расчёт на почту.</p>
+    <!-- ПРЕИМУЩЕСТВА -->
+    <section id="benefits" class="py-16 md:py-24 bg-blue-50 px-4">
+        <div class="container mx-auto max-w-5xl text-center">
+            <h2 class="text-3xl font-bold mb-12 text-gray-800">Почему выбирают меня?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Преимущество 1 -->
+                <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                    <div class="text-blue-600 mb-4 text-4xl"><i class="fas fa-medal"></i></div>
+                    <h3 class="text-xl font-semibold mb-2">Опыт и Квалификация</h3>
+                    <p class="text-gray-600 text-sm">Более 11 лет в сметном деле. Высшее профильное образование.
+                        Действующий специалист НРС, сертификат НОК.</p>
+                </div>
+                <!-- Преимущество 2 -->
+                <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                    <div class="text-blue-600 mb-4 text-4xl"><i class="fas fa-check-double"></i></div>
+                    <h3 class="text-xl font-semibold mb-2">Точность и Соответствие</h3>
+                    <p class="text-gray-600 text-sm">Глубокое знание нормативов (ФЕР, ТЕР, ГЭСН), работа с ресурсными
+                        сметами. Гарантия точности расчетов.</p>
+                </div>
+                <!-- Преимущество 3 -->
+                <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+                    <div class="text-blue-600 mb-4 text-4xl"><i class="fas fa-laptop-house"></i></div>
+                    <h3 class="text-xl font-semibold mb-2">Удобство Удаленной Работы</h3>
+                    <p class="text-gray-600 text-sm">Оперативное выполнение заказов для клиентов по всей России. Гибкий
+                        график, всегда на связи.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <!-- Форма с чекбоксами -->
-        <form
-                id="calcForm"
-                action="https://formspree.io/f/ВАШ_FORM_ID"
-                method="POST"
-                class="space-y-6"
-        >
-            <!-- Список услуг для расчёта (пример) -->
-            <div>
-                <label class="flex items-center mb-2">
-                    <input type="checkbox" name="services[]" value="Смета на ремонт квартиры" data-price="3000" class="mr-2">
-                    Смета на ремонт квартиры (от 3 000 ₽)
-                </label>
-                <label class="flex items-center mb-2">
-                    <input type="checkbox" name="services[]" value="Капитальное строительство" data-price="15000" class="mr-2">
-                    Капитальное строительство (от 15 000 ₽)
-                </label>
-                <label class="flex items-center mb-2">
-                    <input type="checkbox" name="services[]" value="Проверка сметы" data-price="2000" class="mr-2">
-                    Проверка готовой сметы (2 000 ₽)
-                </label>
-                <!-- Добавляйте свои услуги и их цены -->
+    <!-- УСЛУГИ И КАЛЬКУЛЯТОР -->
+    <section id="calculator" class="py-16 md:py-24 bg-white px-4">
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-3xl font-bold text-center mb-6 text-gray-800">Услуги и Расчет Стоимости</h2>
+            <p class="text-center mb-10 text-gray-600">Выберите необходимые услуги для получения предварительного
+                расчета. Точная стоимость определяется после обсуждения деталей вашего проекта.</p>
+
+            <form
+                    id="calcForm"
+                    action="https://formspree.io/f/ВАШ_FORM_ID_НА_FORMSPREE" <!-- ЗАМЕНИТЕ НА ВАШ ID -->
+            method="POST"
+            class="bg-gray-50 p-6 md:p-8 rounded-lg shadow-md border border-gray-200"
+            >
+            <div class="space-y-6 mb-8">
+
+                <!-- 1. Выбор основной услуги -->
+                <div>
+                    <label class="block mb-3 font-semibold text-lg text-gray-700">1. Выберите основную услугу:</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center p-3 border rounded-md hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="primary_service" value="sostavlenie" data-base-price="0"
+                                   class="mr-3 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                            Составление сметы
+                        </label>
+                        <label class="flex items-center p-3 border rounded-md hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="primary_service" value="proverka" data-base-price="0"
+                                   class="mr-3 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                            Проверка сметы / актов КС-2, КС-3
+                        </label>
+                        <label class="flex items-center p-3 border rounded-md hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="primary_service" value="akty_ks" data-base-price="0"
+                                   class="mr-3 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                            Составление актов КС-2, КС-3
+                        </label>
+                        <label class="flex items-center p-3 border rounded-md hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="primary_service" value="kommercheskoe" data-base-price="0"
+                                   class="mr-3 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                            Составление коммерческого предложения
+                        </label>
+                        <label class="flex items-center p-3 border rounded-md hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="primary_service" value="other" data-base-price="0"
+                                   class="mr-3 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                            Другие услуги (выбрать ниже)
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 2. Количество позиций (если применимо) -->
+                <div id="position-count-section" class="position-count-section space-y-3 pt-4 border-t border-gray-200">
+                    <label class="block mb-2 font-semibold text-gray-700">2. Укажите количество позиций:</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <label class="flex items-center p-3 border rounded-md hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="positions" value="pos_20" data-price-sostavlenie="2000"
+                                   data-price-proverka="1000" data-price-kommercheskoe="1000"
+                                   class="mr-3 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                            До 20 позиций
+                        </label>
+                        <label class="flex items-center p-3 border rounded-md hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="positions" value="pos_50" data-price-sostavlenie="4000"
+                                   data-price-proverka="2000" data-price-kommercheskoe="2000"
+                                   class="mr-3 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                            21 - 50 позиций
+                        </label>
+                        <label class="flex items-center p-3 border rounded-md hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="positions" value="pos_100" data-price-sostavlenie="7200"
+                                   data-price-proverka="3000" data-price-kommercheskoe="3000"
+                                   class="mr-3 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                            51 - 100 позиций
+                        </label>
+                        <label class="flex items-center p-3 border rounded-md hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="positions" value="pos_over_100" data-price-sostavlenie="9000"
+                                   data-price-proverka="4500" data-price-kommercheskoe="4000"
+                                   class="mr-3 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                            Свыше 100 позиций
+                        </label>
+                    </div>
+                    <!-- Доработка сметы +25% -->
+                    <div id="peredelka-option" class="pt-2 hidden">
+                        <label class="flex items-center text-sm text-gray-600">
+                            <input type="checkbox" id="peredelka_smeti" name="peredelka_smeti" value="true"
+                                   class="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            Существенная переделка/доработка (+25% к стоимости составления)
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 3. Опции для КС-2/КС-3 -->
+                <div id="ks-options-section" class="ks-options-section space-y-3 pt-4 border-t border-gray-200">
+                    <label class="block mb-2 font-semibold text-gray-700">3. Вариант составления КС-2, КС-3:</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center p-3 border rounded-md hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="ks_option" value="ks_no_change" data-price="1000"
+                                   class="mr-3 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                            Без изменений (1 000 руб.)
+                        </label>
+                        <label class="flex items-center p-3 border rounded-md hover:bg-gray-100 cursor-pointer">
+                            <input type="radio" name="ks_option" value="ks_with_correction" data-price="2000"
+                                   class="mr-3 h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                            С корректировкой объемов (2 000 руб.)
+                        </label>
+                    </div>
+                </div>
+
+
+                <!-- 4. Другие услуги -->
+                <div id="other-services-section" class="other-services-section space-y-3 pt-4 border-t border-gray-200">
+                    <label class="block mb-2 font-semibold text-gray-700">4. Дополнительные услуги:</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" name="services[]" value="Выезд на объект" data-price="1500"
+                                   class="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            Выезд на объект (1 500 ₽/посещение)
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="services[]" value="Дефектная ведомость" data-price="250"
+                                   class="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            Формирование дефектной ведомости (от 250 ₽/шт)
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="services[]" value="КС-6А" data-price="500"
+                                   class="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            Формирование КС-6А (500 ₽/шт)
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="services[]" value="Оценка на площадке" data-price="1000"
+                                   class="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            Оценка сметы на площадке (1 000 ₽)
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="services[]" value="Конъюнктурный анализ" data-price="100"
+                                   class="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            Конъюнктурный анализ (от 100 ₽/позиция)
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="services[]" value="Пакет для экспертизы" data-price="5000"
+                                   class="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                            Формирование пакета для экспертизы (5 000 ₽)
+                        </label>
+                        <label class="flex items-center text-gray-500"> <!-- Неактивно для калькулятора -->
+                            <input type="checkbox" name="services_info[]" value="Прохождение экспертизы"
+                                   class="mr-2 h-4 w-4 border-gray-300 rounded focus:ring-blue-500" disabled>
+                            Прохождение экспертизы (от 3 000 ₽, обсуждается)
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Дисклеймер о скидках -->
+                <div class="pt-4 text-sm text-gray-500 border-t border-gray-200">
+                    <i class="fas fa-percent mr-1"></i> Предусмотрены <strong class="font-medium">скидки</strong> для
+                    постоянных клиентов и на комплексные заказы (обсуждается индивидуально).
+                </div>
+
             </div>
 
             <!-- Итоговая сумма -->
-            <div class="text-xl font-semibold">
-                Предварительная сумма: <span id="totalPrice" class="text-blue-500">0</span> ₽
+            <div class="my-8 p-4 bg-blue-50 border border-blue-200 rounded-md text-center">
+                <span class="block text-sm font-medium text-gray-600">Предварительная стоимость:</span>
+                <span id="totalPrice" class="text-3xl font-bold text-blue-700">0</span> <span
+                    class="text-xl font-semibold text-blue-700">₽</span>
+                <p class="text-xs text-gray-500 mt-1">Точная стоимость будет определена после уточнения деталей.</p>
             </div>
 
-            <!-- Контактные данные -->
+            <!-- Контактные данные для заявки -->
+            <div class="space-y-4 border-t border-gray-200 pt-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">Оставьте заявку для уточнения расчета:</h3>
+                <div>
+                    <label for="name" class="block mb-1 font-medium text-sm text-gray-700">Ваше имя <span
+                            class="text-red-500">*</span></label>
+                    <input type="text" id="name" name="name"
+                           class="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           required>
+                </div>
+                <div>
+                    <label for="phone" class="block mb-1 font-medium text-sm text-gray-700">Телефон (предпочтительно)
+                        <span class="text-red-500">*</span></label>
+                    <input type="tel" id="phone" name="phone"
+                           class="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           required placeholder="+7 (___) ___-__-__">
+                </div>
+                <div>
+                    <label for="email" class="block mb-1 font-medium text-sm text-gray-700">Email <span
+                            class="text-red-500">*</span></label>
+                    <input type="email" id="email" name="email"
+                           class="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           required>
+                </div>
+                <div>
+                    <label for="comment" class="block mb-1 font-medium text-sm text-gray-700">Комментарий (кратко
+                        опишите задачу)</label>
+                    <textarea id="comment" name="comment" rows="3"
+                              class="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+                </div>
+                <!-- Скрытые поля для отправки данных калькулятора -->
+                <input type="hidden" name="calculated_price" id="hiddenTotalPrice">
+                <input type="hidden" name="selected_services_summary" id="hiddenServicesSummary">
+
+                <!-- Кнопка отправки -->
+                <button
+                        type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold text-lg transition duration-300 flex items-center justify-center shadow-md"
+                >
+                    <i class="fas fa-paper-plane mr-2"></i> Отправить заявку на расчет
+                </button>
+                <p class="text-xs text-gray-500 text-center mt-4">Нажимая кнопку, вы соглашаетесь с <a
+                        href="#privacy-policy" class="underline hover:text-blue-600">обработкой персональных данных</a>.
+                </p>
+            </div>
+            <noscript>
+                <p class="text-red-600 font-semibold mt-4 text-center">Для работы калькулятора необходимо включить
+                    JavaScript в вашем браузере.</p>
+            </noscript>
+            </form>
+
+            <!-- Ссылка на полный прайс-лист (можно сделать модальным окном или отдельной секцией) -->
+            <div class="text-center mt-8">
+                <a href="#full-pricelist" id="show-pricelist-btn" class="text-blue-600 hover:underline">Посмотреть
+                    полный прайс-лист <i class="fas fa-chevron-down ml-1 text-xs"></i></a>
+            </div>
+
+            <!-- Полный прайс-лист (скрыт по умолчанию) -->
+            <div id="full-pricelist" class="mt-10 hidden bg-gray-100 p-6 rounded-lg border">
+                <h3 class="text-xl font-semibold mb-4 text-center">Полный прайс-лист на услуги</h3>
+                <!-- Здесь можно детально расписать прайс в виде таблицы или списков -->
+                <div class="space-y-4 text-sm">
+                    <p><strong>1) Составление сметы:</strong></p>
+                    <ul class="list-disc list-inside ml-4">
+                        <li>до 20 позиций: 2 000 ₽</li>
+                        <li>21-50 позиций: 4 000 ₽</li>
+                        <li>51-100 позиций: 7 200 ₽</li>
+                        <li>свыше 100 позиций: 9 000 ₽</li>
+                        <li>Существенная переделка/доработка: +25% к стоимости составления</li>
+                    </ul>
+                    <p><strong>2) Составление актов КС-2, КС-3:</strong></p>
+                    <ul class="list-disc list-inside ml-4">
+                        <li>Без изменений: 1 000 ₽</li>
+                        <li>С корректировкой объемов: 2 000 ₽</li>
+                    </ul>
+                    <p><strong>3) Проверка сметы, актов КС-2, КС-3:</strong></p>
+                    <ul class="list-disc list-inside ml-4">
+                        <li>до 20 позиций: 1 000 ₽</li>
+                        <li>21-50 позиций: 2 000 ₽</li>
+                        <li>51-100 позиций: 3 000 ₽</li>
+                        <li>свыше 100 позиций: 4 500 ₽</li>
+                    </ul>
+                    <p><strong>4) Дополнительные услуги:</strong></p>
+                    <ul class="list-disc list-inside ml-4">
+                        <li>Выезд на объект: 1 500 ₽/посещение</li>
+                        <li>Формирование дефектной ведомости: от 250 ₽/шт</li>
+                        <li>Формирование КС-6А: 500 ₽/шт</li>
+                        <li>Оценка сметы на площадке: 1 000 ₽</li>
+                        <li>Конъюнктурный анализ: от 100 ₽/позиция</li>
+                        <li>Формирование пакета для экспертизы: 5 000 ₽</li>
+                        <li>Прохождение экспертизы: от 3 000 до 10 000 ₽ (обсуждается)</li>
+                    </ul>
+                    <p><strong>5) Коммерческие предложения:</strong></p>
+                    <ul class="list-disc list-inside ml-4">
+                        <li>до 20 позиций: 1 000 ₽</li>
+                        <li>21-50 позиций: 2 000 ₽</li>
+                        <li>51-100 позиций: 3 000 ₽</li>
+                        <li>свыше 100 позиций: 4 000 ₽</li>
+                    </ul>
+                </div>
+                <button id="hide-pricelist-btn" class="mt-4 text-blue-600 hover:underline text-sm">Скрыть прайс-лист <i
+                        class="fas fa-chevron-up ml-1 text-xs"></i></button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ПОРТФОЛИО И СЕРТИФИКАТЫ -->
+    <section id="portfolio" class="py-16 md:py-24 bg-gray-100 px-4">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Портфолио и Сертификаты</h2>
+            <!-- Блок с Сертификатами -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-center mb-6 text-gray-700">Подтверждение квалификации</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-center">
+                    <!-- Placeholder Сертификата 1 -->
+                    <div class="bg-white p-4 rounded-lg shadow border border-gray-200">
+                        <img src="https://via.placeholder.com/300x200/e0e0e0/999999?text=Сертификат+НРС"
+                             alt="Сертификат НРС" class="w-full h-32 object-contain mb-3 mx-auto">
+                        <p class="font-medium text-gray-700">Специалист НРС</p>
+                        <p class="text-sm text-gray-500">(Национальный реестр специалистов)</p>
+                    </div>
+                    <!-- Placeholder Сертификата 2 -->
+                    <div class="bg-white p-4 rounded-lg shadow border border-gray-200">
+                        <img src="https://via.placeholder.com/300x200/e0e0e0/999999?text=Сертификат+НОК+2023"
+                             alt="Сертификат НОК" class="w-full h-32 object-contain mb-3 mx-auto">
+                        <p class="font-medium text-gray-700">Сертификат НОК</p>
+                        <p class="text-sm text-gray-500">(Независимая оценка квалификации, 2023 г.)</p>
+                    </div>
+                    <!-- Placeholder Сертификата 3 (Курсы) -->
+                    <div class="bg-white p-4 rounded-lg shadow border border-gray-200">
+                        <img src="https://via.placeholder.com/300x200/e0e0e0/999999?text=Курсы+повышения"
+                             alt="Курсы повышения квалификации" class="w-full h-32 object-contain mb-3 mx-auto">
+                        <p class="font-medium text-gray-700">Курсы повышения</p>
+                        <p class="text-sm text-gray-500">(Специальность: Инженер ПТО)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Блок с Примерами Работ (Портфолио) -->
             <div>
-                <label class="block mb-1 font-semibold">Ваше имя</label>
-                <input type="text" name="name" class="w-full border px-3 py-2" required>
+                <h3 class="text-2xl font-semibold text-center mb-8 text-gray-700">Примеры выполненных работ</h3>
+                <p class="text-center text-gray-600 mb-8">Здесь можно разместить обезличенные примеры смет, типы
+                    объектов или краткие кейсы.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Placeholder Портфолио 1 -->
+                    <div class="bg-white rounded-lg shadow overflow-hidden service-card">
+                        <img src="https://via.placeholder.com/600x400/d0e0f0/667788?text=Пример+Сметы+Ремонт"
+                             alt="Пример сметы на ремонт" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h4 class="font-semibold mb-1">Смета на ремонт квартиры</h4>
+                            <p class="text-sm text-gray-600">Составление подробной сметы на отделочные работы.</p>
+                        </div>
+                    </div>
+                    <!-- Placeholder Портфолио 2 -->
+                    <div class="bg-white rounded-lg shadow overflow-hidden service-card">
+                        <img src="https://via.placeholder.com/600x400/d0f0e0/668877?text=Пример+КС-2+Строительство"
+                             alt="Пример акта КС-2" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h4 class="font-semibold mb-1">Акты КС-2, КС-3</h4>
+                            <p class="text-sm text-gray-600">Подготовка исполнительной документации для строящегося
+                                объекта.</p>
+                        </div>
+                    </div>
+                    <!-- Placeholder Портфолио 3 -->
+                    <div class="bg-white rounded-lg shadow overflow-hidden service-card">
+                        <img src="https://via.placeholder.com/600x400/f0e0d0/887766?text=Проверка+Сметы+Подрядчика"
+                             alt="Пример проверки сметы" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h4 class="font-semibold mb-1">Проверка сметы подрядчика</h4>
+                            <p class="text-sm text-gray-600">Анализ предоставленной сметы на завышение и ошибки.</p>
+                        </div>
+                    </div>
+                    <!-- Добавьте больше примеров при необходимости -->
+                </div>
             </div>
-            <div>
-                <label class="block mb-1 font-semibold">Телефон</label>
-                <input type="tel" name="phone" class="w-full border px-3 py-2" required>
+        </div>
+    </section>
+
+    <!-- КАК ЗАКАЗАТЬ -->
+    <section id="how-it-works" class="py-16 md:py-24 bg-white px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-3xl font-bold mb-12 text-gray-800">Как заказать услугу?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center relative">
+                <!-- Линия между шагами (декоративная) -->
+                <div class="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-blue-200 transform -translate-y-1/2"
+                     style="margin-top: -3rem;"></div> <!-- Скорректировать отступ если иконки другого размера -->
+
+                <!-- Шаг 1 -->
+                <div class="relative z-10 flex flex-col items-center">
+                    <div class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl mb-3 shadow-lg">
+                        <i class="fas fa-calculator"></i></div>
+                    <h3 class="font-semibold mb-1">1. Заявка</h3>
+                    <p class="text-sm text-gray-600">Рассчитайте стоимость в калькуляторе и отправьте заявку или
+                        свяжитесь со мной.</p>
+                </div>
+                <!-- Шаг 2 -->
+                <div class="relative z-10 flex flex-col items-center">
+                    <div class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl mb-3 shadow-lg">
+                        <i class="fas fa-comments"></i></div>
+                    <h3 class="font-semibold mb-1">2. Уточнение</h3>
+                    <p class="text-sm text-gray-600">Обсуждаем детали проекта, объем работ, получаем необходимые
+                        документы.</p>
+                </div>
+                <!-- Шаг 3 -->
+                <div class="relative z-10 flex flex-col items-center">
+                    <div class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl mb-3 shadow-lg">
+                        <i class="fas fa-pencil-ruler"></i></div>
+                    <h3 class="font-semibold mb-1">3. Выполнение</h3>
+                    <p class="text-sm text-gray-600">Составляю или проверяю сметную документацию в согласованные
+                        сроки.</p>
+                </div>
+                <!-- Шаг 4 -->
+                <div class="relative z-10 flex flex-col items-center">
+                    <div class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl mb-3 shadow-lg">
+                        <i class="fas fa-file-alt"></i></div>
+                    <h3 class="font-semibold mb-1">4. Результат</h3>
+                    <p class="text-sm text-gray-600">Вы получаете готовую смету/акты/заключение в электронном виде.</p>
+                </div>
             </div>
-            <div>
-                <label class="block mb-1 font-semibold">Email</label>
-                <input type="email" name="email" class="w-full border px-3 py-2" required>
+        </div>
+    </section>
+
+    <!-- ОТЗЫВЫ (Опционально) -->
+    <!--
+    <section id="reviews" class="py-16 md:py-24 bg-blue-50 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+             <h2 class="text-3xl font-bold mb-12 text-gray-800">Отзывы клиентов</h2>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                 <div class="bg-white p-6 rounded-lg shadow text-left"> Placeholder отзыва 1... </div>
+                 <div class="bg-white p-6 rounded-lg shadow text-left"> Placeholder отзыва 2... </div>
+             </div>
+        </div>
+    </section>
+    -->
+
+    <!-- КОНТАКТЫ -->
+    <footer id="contacts" class="bg-gray-800 text-gray-300 py-16 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-3xl font-bold mb-6 text-white">Свяжитесь со мной</h2>
+            <p class="mb-8 text-gray-400">Готова обсудить ваш проект и ответить на вопросы.</p>
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8 mb-10">
+                <div class="flex items-center">
+                    <i class="fas fa-phone fa-lg text-blue-400 mr-3"></i>
+                    <a href="tel:+79609618922" class="text-lg hover:text-white hover:underline">+7 (960) 961-89-22</a>
+                    <span class="ml-2 text-sm text-gray-500">(предпочтительно)</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-envelope fa-lg text-blue-400 mr-3"></i>
+                    <a href="mailto:ckobeleva@gmail.com" class="text-lg hover:text-white hover:underline">ckobeleva@gmail.com</a>
+                </div>
+                <!-- Можно добавить мессенджеры, если актуально -->
+                <!--
+                <div class="flex items-center">
+                   <i class="fab fa-whatsapp fa-lg text-green-400 mr-3"></i>
+                   <a href="https://wa.me/79609618922" target="_blank" class="text-lg hover:text-white hover:underline">WhatsApp</a>
+                </div>
+                -->
             </div>
+            <p class="text-sm text-gray-500">Проживаю в г. Барнаул, работаю удаленно по всей России.</p>
+            <p class="text-sm text-gray-500 mt-1">График работы: гибкий.</p>
 
-            <!-- Кнопка отправки -->
-            <button
-                    type="submit"
-                    class="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded font-semibold"
-            >
-                Отправить заявку
-            </button>
-        </form>
-    </div>
-</section>
+            <!-- Копирайт и Политика -->
+            <div class="mt-12 border-t border-gray-700 pt-6">
+                <p class="text-sm text-gray-400">
+                    © 2024 Елена Скобелева, Инженер-сметчик. Все права защищены.
+                </p>
+                <p id="privacy-policy" class="text-xs text-gray-500 mt-2">
+                    <a href="#" class="hover:underline">Политика конфиденциальности</a>
+                    <!-- Замените # на ссылку на реальную политику -->
+                </p>
+            </div>
+        </div>
+    </footer>
+</main>
 
-<!-- ПОРТФОЛИО / ОТЗЫВЫ (опционально) -->
-<!-- Можете добавить блоки с кейсами, фотографиями, отзывами -->
-
-<!-- КОНТАКТЫ / ФУТЕР -->
-<footer id="contacts" class="bg-gray-800 text-gray-100 py-8 px-4">
-    <div class="container mx-auto max-w-4xl">
-        <h2 class="text-2xl font-bold mb-4">Контакты</h2>
-        <p class="mb-2">Телефон: <a href="tel:+79990001122" class="underline">+7 (999) 000-11-22</a></p>
-        <p class="mb-2">Email: <a href="mailto:info@example.com" class="underline">info@example.com</a></p>
-        <p class="mb-2">Адрес: г. Москва, ул. Примерная, д. 1</p>
-
-        <p class="text-sm text-gray-400 mt-6">
-            © 2025 Иван Иванов (или название компании). Все права защищены.
-        </p>
-    </div>
-</footer>
-
-<!-- СКРИПТ для калькулятора (JS) -->
+<!-- СКРИПТ для калькулятора и меню (JS) -->
 <script>
-    // Получаем чекбоксы и элемент, где показывается итог
-    const checkboxes = document.querySelectorAll('input[type="checkbox"][data-price]');
-    const totalPriceEl = document.getElementById('totalPrice');
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('calcForm');
+        const primaryServiceRadios = form.querySelectorAll('input[name="primary_service"]');
+        const positionRadios = form.querySelectorAll('input[name="positions"]');
+        const ksOptionRadios = form.querySelectorAll('input[name="ks_option"]');
+        const otherServiceCheckboxes = form.querySelectorAll('input[name="services[]"]');
+        const peredelkaCheckbox = document.getElementById('peredelka_smeti');
 
-    // Функция пересчитывает сумму при каждом клике на чекбокс
-    function updateTotalPrice() {
-        let total = 0;
-        checkboxes.forEach((checkbox) => {
-            if (checkbox.checked) {
-                // Берём цену из data-price
-                const price = parseInt(checkbox.getAttribute('data-price'), 10);
-                total += price;
+        const totalPriceEl = document.getElementById('totalPrice');
+        const hiddenTotalPriceEl = document.getElementById('hiddenTotalPrice');
+        const hiddenSummaryEl = document.getElementById('hiddenServicesSummary');
+
+        const positionSection = document.getElementById('position-count-section');
+        const peredelkaOptionDiv = document.getElementById('peredelka-option');
+        const ksOptionsSection = document.getElementById('ks-options-section');
+        const otherServicesSection = document.getElementById('other-services-section'); // Для управления видимостью
+
+        // Функция обновления видимости секций
+        function updateSectionsVisibility() {
+            const selectedService = form.querySelector('input[name="primary_service"]:checked');
+            if (!selectedService) {
+                positionSection.classList.remove('visible');
+                peredelkaOptionDiv.style.display = 'none';
+                ksOptionsSection.classList.remove('visible');
+                otherServicesSection.classList.remove('visible');
+                return;
             }
-        });
-        totalPriceEl.textContent = total;
-    }
 
-    // Вешаем обработчик на каждый чекбокс
-    checkboxes.forEach((cb) => {
-        cb.addEventListener('change', updateTotalPrice);
-    });
+            const serviceValue = selectedService.value;
 
-    // (Дополнительно) Если надо отправлять итоговую сумму в Formspree:
-    // Можно вставить hidden-поле и при сабмите записывать туда сумму
-    const calcForm = document.getElementById('calcForm');
-    calcForm.addEventListener('submit', (event) => {
-        // Перед отправкой формы создаём/обновляем скрытое поле:
-        let hiddenField = document.querySelector('input[name="totalPrice"]');
-        if (!hiddenField) {
-            hiddenField = document.createElement('input');
-            hiddenField.type = 'hidden';
-            hiddenField.name = 'totalPrice';
-            calcForm.appendChild(hiddenField);
+            // Позиции и переделка
+            if (serviceValue === 'sostavlenie' || serviceValue === 'proverka' || serviceValue === 'kommercheskoe') {
+                positionSection.classList.add('visible');
+                peredelkaOptionDiv.style.display = (serviceValue === 'sostavlenie') ? 'block' : 'none';
+            } else {
+                positionSection.classList.remove('visible');
+                peredelkaOptionDiv.style.display = 'none';
+                // Сброс выбора позиций при смене основной услуги
+                positionRadios.forEach(radio => radio.checked = false);
+            }
+
+            // Опции КС
+            if (serviceValue === 'akty_ks') {
+                ksOptionsSection.classList.add('visible');
+            } else {
+                ksOptionsSection.classList.remove('visible');
+                // Сброс выбора КС опций
+                ksOptionRadios.forEach(radio => radio.checked = false);
+            }
+
+            // Другие услуги - всегда видимы, если выбрано 'other' или если мы хотим их всегда показывать
+            if (serviceValue === 'other') {
+                otherServicesSection.classList.add('visible');
+            } else {
+                // Решите: скрыть или оставить видимыми для добавления к другим услугам?
+                // Пока оставляем видимыми всегда, кроме случая когда ничего не выбрано
+                otherServicesSection.classList.add('visible');
+                // Если хотите скрывать: otherServicesSection.classList.remove('visible');
+                // otherServiceCheckboxes.forEach(cb => cb.checked = false);
+            }
+            if (!selectedService) { // Скрыть если вообще ничего не выбрано
+                otherServicesSection.classList.remove('visible');
+            }
+
+
         }
-        hiddenField.value = totalPriceEl.textContent; // Записываем текущую сумму
+
+        // Функция пересчета суммы
+        function updateTotalPrice() {
+            let total = 0;
+            let summary = []; // Для сбора описания выбранных услуг
+            const selectedService = form.querySelector('input[name="primary_service"]:checked');
+
+            if (!selectedService) {
+                totalPriceEl.textContent = '0';
+                hiddenTotalPriceEl.value = '0';
+                hiddenSummaryEl.value = '';
+                return;
+            }
+
+            const serviceValue = selectedService.value;
+            let basePositionPrice = 0; // Цена, зависящая от кол-ва позиций
+
+            // 1. Расчет базовой цены от позиций (если применимо)
+            const selectedPosition = form.querySelector('input[name="positions"]:checked');
+            if ((serviceValue === 'sostavlenie' || serviceValue === 'proverka' || serviceValue === 'kommercheskoe') && selectedPosition) {
+                const priceAttr = `data-price-${serviceValue}`; // data-price-sostavlenie, data-price-proverka, etc.
+                basePositionPrice = parseInt(selectedPosition.getAttribute(priceAttr) || '0', 10);
+                total += basePositionPrice;
+                summary.push(`Услуга: ${selectedService.labels[0].textContent.trim()}, Позиции: ${selectedPosition.labels[0].textContent.trim()} (${basePositionPrice} ₽)`);
+            } else if (serviceValue === 'akty_ks') {
+                // 2. Расчет цены для КС-2/3
+                const selectedKsOption = form.querySelector('input[name="ks_option"]:checked');
+                if (selectedKsOption) {
+                    const ksPrice = parseInt(selectedKsOption.getAttribute('data-price') || '0', 10);
+                    total += ksPrice;
+                    summary.push(`Услуга: ${selectedService.labels[0].textContent.trim()} (${selectedKsOption.labels[0].textContent.trim()}, ${ksPrice} ₽)`);
+                } else {
+                    summary.push(`Услуга: ${selectedService.labels[0].textContent.trim()} (вариант не выбран)`);
+                }
+            } else if (serviceValue === 'other') {
+                summary.push(`Услуга: Другие услуги`);
+            } else {
+                summary.push(`Услуга: ${selectedService.labels[0].textContent.trim()}`); // Если услуга не имеет доп опций цены
+            }
+
+
+            // 3. Учет переделки (+25%)
+            if (serviceValue === 'sostavlenie' && peredelkaCheckbox.checked && basePositionPrice > 0) {
+                const peredelkaCost = Math.round(basePositionPrice * 0.25);
+                total += peredelkaCost;
+                summary.push(` - Доработка: +${peredelkaCost} ₽ (25%)`);
+            }
+
+            // 4. Расчет доп. услуг (чекбоксы)
+            otherServiceCheckboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    const price = parseInt(checkbox.getAttribute('data-price') || '0', 10);
+                    const serviceName = checkbox.labels[0].textContent.split('(')[0].trim(); // Получаем имя услуги до скобок
+                    total += price;
+                    summary.push(` - Доп: ${serviceName} (+${price} ₽)`);
+                }
+            });
+
+            totalPriceEl.textContent = total;
+            hiddenTotalPriceEl.value = total;
+            hiddenSummaryEl.value = summary.join('; '); // Сохраняем сводку в скрытое поле
+
+        }
+
+        // Вешаем обработчики
+        form.addEventListener('change', () => {
+            updateSectionsVisibility();
+            updateTotalPrice();
+        });
+
+        // Инициализация при загрузке
+        updateSectionsVisibility();
+        updateTotalPrice();
+
+
+        // --- Мобильное меню ---
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Закрытие меню при клике на ссылку (для одностраничников)
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // --- Показ/скрытие полного прайс-листа ---
+        const showPriceBtn = document.getElementById('show-pricelist-btn');
+        const hidePriceBtn = document.getElementById('hide-pricelist-btn');
+        const pricelistDiv = document.getElementById('full-pricelist');
+
+        showPriceBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            pricelistDiv.classList.remove('hidden');
+            showPriceBtn.classList.add('hidden'); // Скрыть кнопку "показать"
+        });
+
+        hidePriceBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            pricelistDiv.classList.add('hidden');
+            showPriceBtn.classList.remove('hidden'); // Показать кнопку "показать"
+        });
+
     });
 </script>
 
